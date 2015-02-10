@@ -3,12 +3,12 @@
  * Core functions file for the plugin.  This file sets up default actions/filters and defines other functions 
  * needed within the plugin.
  *
- * @package    Restaurant
+ * @package    WP_Dentist
  * @subpackage Includes
  * @since      1.0.0
  * @author     Justin Tadlock <justin@justintadlock.com>
  * @copyright  Copyright (c) 2013 - 2014, Justin Tadlock
- * @link       http://themehybrid.com/plugins/restaurant
+ * @link       http://themehybrid.com/plugins/wpdentist
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
@@ -28,8 +28,8 @@ add_action( 'init', 'rp_add_image_sizes' );
 function rp_get_default_settings() {
 
 	$settings = array(
-		'restaurant_item_archive_title' => __( 'Menu',            'restaurant' ),
-		'restaurant_item_description'   => __( 'Delicious food.', 'restaurant' )
+		'wpdentist_item_archive_title' => __( 'WPDentist',            'wpdentist' ),
+		'wpdentist_item_description'   => __( 'WordPress Dentist.', 'wpdentist' )
 	);
 
 	return $settings;
@@ -42,8 +42,8 @@ function rp_get_default_settings() {
  * @access public
  * @return string
  */
-function rp_restaurant_menu_base() {
-	return apply_filters( 'rp_restaurant_menu_base', 'menu' );
+function rp_wpdentist_menu_base() {
+	return apply_filters( 'rp_wpdentist_menu_base', 'menu' );
 }
 
 /**
@@ -56,8 +56,8 @@ function rp_restaurant_menu_base() {
  */
 function rp_post_type_archive_title( $title ) {
 
-	if ( is_post_type_archive( 'restaurant_item' ) ) {
-		$post_type = get_post_type_object( 'restaurant_item' );
+	if ( is_post_type_archive( 'wpdentist_item' ) ) {
+		$post_type = get_post_type_object( 'wpdentist_item' );
 		$title     = isset( $post_type->labels->archive_title ) ? $post_type->labels->archive_title : $title;
 	}
 
@@ -72,5 +72,5 @@ function rp_post_type_archive_title( $title ) {
  * @return void
  */
 function rp_add_image_sizes() {
-	add_image_size( 'restaurant-thumbnail', 100, 75, true );
+	add_image_size( 'wpdentist-thumbnail', 100, 75, true );
 }

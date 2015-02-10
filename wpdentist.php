@@ -1,30 +1,30 @@
 <?php
 /**
- * Plugin Name: Restaurant
- * Plugin URI: http://themehybrid.com/plugins/restaurant
- * Description: A base plugin for building restaurant Web sites. This plugin allows you to manage a basic food and beverage menu. The purpose of it is to handle small restaurant sites while allowing for extension plugins to add more complex features.
+ * Plugin Name: WP Dentist
+ * Plugin URI: http://themehybrid.com/plugins/wpdentist
+ * Description: A base plugin for building wpdentist Web sites. This plugin allows you to manage a basic food and beverage menu. The purpose of it is to handle small restaurant sites while allowing for extension plugins to add more complex features.
  * Version: 1.0.0
  * Author: Justin Tadlock
  * Author URI: http://justintadlock.com
- * Text Domain: restuarant
+ * Text Domain: wpdentist
  * Domain Path: /languages
  *
- * @package    Restaurant
+ * @package    WP_Dentist
  * @version    1.0.0
  * @author     Justin Tadlock <justin@justintadlock.com>
  * @copyright  Copyright (c) 2013 - 2014, Justin Tadlock
- * @link       http://themehybrid.com/plugins/restaurant
+ * @link       http://themehybrid.com/plugins/wpdentist
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /**
- * Sets up and initializes the Restaurant plugin.
+ * Sets up and initializes the WP Dentist plugin.
  *
  * @since  1.0.0
  * @access public
  * @return void
  */
-final class RP_Restaurant {
+final class WP_Dentist {
 
 	/**
 	 * Holds the instances of this class.
@@ -70,16 +70,16 @@ final class RP_Restaurant {
 	function constants() {
 
 		/* Set the version number of the plugin. */
-		define( 'RESTAURANT_VERSION', '1.0.0' );
+		define( 'WPDENTIST_VERSION', '1.0.0' );
 
 		/* Set the database version number of the plugin. */
-		define( 'RESTAURANT_DB_VERSION', 1 );
+		define( 'WPDENTIST_DB_VERSION', 1 );
 
 		/* Set constant path to the plugin directory. */
-		define( 'RESTAURANT_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
+		define( 'WPDENTIST_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 
 		/* Set constant path to the plugin URI. */
-		define( 'RESTAURANT_URI', trailingslashit( plugin_dir_url( __FILE__ ) ) );
+		define( 'WPDENTIST_URI', trailingslashit( plugin_dir_url( __FILE__ ) ) );
 	}
 
 	/**
@@ -91,11 +91,8 @@ final class RP_Restaurant {
 	 */
 	function includes() {
 
-	//	require_once( RESTAURANT_DIR . 'inc/core.php'       );
-                require_once( RESTAURANT_DIR . 'inc/functions.php' );
-		require_once( RESTAURANT_DIR . 'inc/post-types.php' );
-	//	require_once( RESTAURANT_DIR . 'inc/taxonomies.php' );
-	//	require_once( RESTAURANT_DIR . 'inc/template.php'   );
+                require_once( WPDENTIST_DIR . 'inc/functions.php' );
+		require_once( WPDENTIST_DIR . 'inc/post-types.php' );
 	}
 
 	/**
@@ -106,7 +103,7 @@ final class RP_Restaurant {
 	 * @return void
 	 */
 	function i18n() {
-		load_plugin_textdomain( 'restaurant', false, 'restaurant/languages' );
+		load_plugin_textdomain( 'wpdentist', false, 'wpdentist/languages' );
 	}
 
 	/**
@@ -119,8 +116,7 @@ final class RP_Restaurant {
 	function admin() {
 
 		if ( is_admin() ) {
-			//require_once( RESTAURANT_DIR . 'admin/class-restaurant-admin.php'    );
-			require_once( RESTAURANT_DIR . 'admin/class-restaurant-settings.php' );
+			require_once( WPDENTIST_DIR . 'admin/class-wpdentist-settings.php' );
 		}
 	}
 
@@ -136,9 +132,9 @@ final class RP_Restaurant {
 		$role = get_role( 'administrator' );
 
 		if ( !empty( $role ) ) {
-			$role->add_cap( 'manage_restaurant'       );
-			$role->add_cap( 'create_restaurant_items' );
-			$role->add_cap( 'edit_restaurant_items'   );
+			$role->add_cap( 'manage_wpdentist'       );
+			$role->add_cap( 'create_wpdentist_items' );
+			$role->add_cap( 'edit_wpdentist_items'   );
 		}
 	}
 
@@ -158,4 +154,4 @@ final class RP_Restaurant {
 	}
 }
 
-RP_Restaurant::get_instance();
+WP_Dentist::get_instance();

@@ -2,17 +2,17 @@
 /**
  * File for registering custom post types.
  *
- * @package    Restaurant
+ * @package    WP_Dentist
  * @subpackage Includes
  * @since      1.0.0
  * @author     Justin Tadlock <justin@justintadlock.com>
  * @copyright  Copyright (c) 2013 - 2014, Justin Tadlock
- * @link       http://themehybrid.com/plugins/restaurant
+ * @link       http://themehybrid.com/plugins/wpdentist
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /* Register custom post types on the 'init' hook. */
-add_action( 'init', 'restaurant_register_post_types' );
+add_action( 'init', 'wpdentist_register_post_types' );
 
 /* Filter post updated messages for custom post types. */
 add_filter( 'post_updated_messages', 'rp_post_updated_messages' );
@@ -27,14 +27,14 @@ add_filter( 'enter_title_here', 'rp_enter_title_here', 10, 2 );
  * @access public
  * @return void
  */
-function restaurant_register_post_types() {
+function wpdentist_register_post_types() {
 
 	/* Get plugin settings. */
-	$settings = get_option( 'restaurant_settings', rp_get_default_settings() );
+	$settings = get_option( 'wpdentist_settings', rp_get_default_settings() );
 
 	/* Set up the arguments for the post type. */
 	$args = array(
-		'description'         => $settings['restaurant_item_description'],
+		'description'         => $settings['wpdentist_item_description'],
 		'public'              => true,
 		'publicly_queryable'  => true,
 		'exclude_from_search' => false,
@@ -47,39 +47,39 @@ function restaurant_register_post_types() {
 		'can_export'          => true,
 		'delete_with_user'    => false,
 		'hierarchical'        => false,
-		'has_archive'         => rp_restaurant_menu_base(),
-		'query_var'           => 'restaurant_item',
-		'capability_type'     => 'restaurant_item',
+		'has_archive'         => rp_wpdentist_menu_base(),
+		'query_var'           => 'wpdentist_item',
+		'capability_type'     => 'wpdentist_item',
 		'map_meta_cap'        => true,
 
 		'capabilities' => array(
 
 			// meta caps (don't assign these to roles)
-			'edit_post'              => 'edit_restaurant_item',
-			'read_post'              => 'read_restaurant_item',
-			'delete_post'            => 'delete_restaurant_item',
+			'edit_post'              => 'edit_wpdentist_item',
+			'read_post'              => 'read_wpdentist_item',
+			'delete_post'            => 'delete_wpdentist_item',
 
 			// primitive/meta caps
-			'create_posts'           => 'create_restaurant_items',
+			'create_posts'           => 'create_wpdentist_items',
 
 			// primitive caps used outside of map_meta_cap()
-			'edit_posts'             => 'edit_restaurant_items',
-			'edit_others_posts'      => 'manage_restaurant',
-			'publish_posts'          => 'manage_restaurant',
+			'edit_posts'             => 'edit_wpdentist_items',
+			'edit_others_posts'      => 'manage_wpdentist',
+			'publish_posts'          => 'manage_wpdentist',
 			'read_private_posts'     => 'read',
 
 			// primitive caps used inside of map_meta_cap()
 			'read'                   => 'read',
-			'delete_posts'           => 'manage_restaurant',
-			'delete_private_posts'   => 'manage_restaurant',
-			'delete_published_posts' => 'manage_restaurant',
-			'delete_others_posts'    => 'manage_restaurant',
-			'edit_private_posts'     => 'edit_restaurant_items',
-			'edit_published_posts'   => 'edit_restaurant_items'
+			'delete_posts'           => 'manage_wpdentist',
+			'delete_private_posts'   => 'manage_wpdentist',
+			'delete_published_posts' => 'manage_wpdentist',
+			'delete_others_posts'    => 'manage_wpdentist',
+			'edit_private_posts'     => 'edit_wpdentist_items',
+			'edit_published_posts'   => 'edit_wpdentist_items'
 		),
 
 		'rewrite' => array(
-			'slug'       => rp_restaurant_menu_base() . '/items',
+			'slug'       => rp_wpdentist_menu_base() . '/items',
 			'with_front' => false,
 			'pages'      => true,
 			'feeds'      => true,
@@ -96,27 +96,27 @@ function restaurant_register_post_types() {
 		),
 
 		'labels' => array(
-			'name'               => __( 'Menu Items',                   'restaurant' ),
-			'singular_name'      => __( 'Menu Item',                    'restaurant' ),
-			'menu_name'          => $settings['restaurant_item_archive_title'],
-			'name_admin_bar'     => __( 'Restaurant Menu Item',         'restaurant' ),
-			'all_items'          => __( 'Menu Items',                   'restaurant' ),
-			'add_new'            => __( 'Add Menu Item',                'restaurant' ),
-			'add_new_item'       => __( 'Add New Menu Item',            'restaurant' ),
-			'edit_item'          => __( 'Edit Menu Item',               'restaurant' ),
-			'new_item'           => __( 'New Menu Item',                'restaurant' ),
-			'view_item'          => __( 'View Menu Item',               'restaurant' ),
-			'search_items'       => __( 'Search Menu Items',            'restaurant' ),
-			'not_found'          => __( 'No menu items found',          'restaurant' ),
-			'not_found_in_trash' => __( 'No menu items found in trash', 'restaurant' ),
+			'name'               => __( 'Menu Items',                   'wpdentist' ),
+			'singular_name'      => __( 'Menu Item',                    'wpdentist' ),
+			'menu_name'          => __( 'WPDentist',                    'wpdentist' ),
+			'name_admin_bar'     => __( 'WPDentist Menu Item',          'wpdentist' ),
+			'all_items'          => __( 'Menu Items',                   'wpdentist' ),
+			'add_new'            => __( 'Add Menu Item',                'wpdentist' ),
+			'add_new_item'       => __( 'Add New Menu Item',            'wpdentist' ),
+			'edit_item'          => __( 'Edit Menu Item',               'wpdentist' ),
+			'new_item'           => __( 'New Menu Item',                'wpdentist' ),
+			'view_item'          => __( 'View Menu Item',               'wpdentist' ),
+			'search_items'       => __( 'Search Menu Items',            'wpdentist' ),
+			'not_found'          => __( 'No menu items found',          'wpdentist' ),
+			'not_found_in_trash' => __( 'No menu items found in trash', 'wpdentist' ),
 
 			/* Custom archive label.  Must filter 'post_type_archive_title' to use. */
-			'archive_title'      => $settings['restaurant_item_archive_title'],
+			'archive_title'      => $settings['wpdentist_item_archive_title'],
 		)
 	);
 
 	/* Register the post type. */
-	register_post_type( 'restaurant_item', $args );
+	register_post_type( 'wpdentist_item', $args );
 }
 
 /**
@@ -130,8 +130,8 @@ function restaurant_register_post_types() {
  */
 function rp_enter_title_here( $title, $post ) {
 
-	if ( 'restaurant_item' === $post->post_type )
-		$title = __( 'Enter menu item name', 'restaurant' );
+	if ( 'wpdentist_item' === $post->post_type )
+		$title = __( 'Enter name', 'wpdentist' );
 
 	return $title;
 }
@@ -144,18 +144,18 @@ function rp_enter_title_here( $title, $post ) {
 function rp_post_updated_messages( $messages ) {
 	global $post, $post_ID;
 
-	$messages['restaurant_item'] = array(
+	$messages['wpdentist_item'] = array(
 		 0 => '', // Unused. Messages start at index 1.
-		 1 => sprintf( __( 'Menu item updated. <a href="%s">View menu item</a>', 'restaurant' ), esc_url( get_permalink( $post_ID ) ) ),
+		 1 => sprintf( __( 'Menu item updated. <a href="%s">View menu item</a>', 'wpdentist' ), esc_url( get_permalink( $post_ID ) ) ),
 		 2 => '',
 		 3 => '',
-		 4 => __( 'Menu item updated.', 'restaurant' ),
-		 5 => isset( $_GET['revision'] ) ? sprintf( __( 'Menu item restored to revision from %s', 'restaurant' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-		 6 => sprintf( __( 'Menu item published. <a href="%s">View menu item</a>', 'restaurant' ), esc_url( get_permalink( $post_ID ) ) ),
-		 7 => __( 'Menu item saved.', 'restaurant' ),
-		 8 => sprintf( __( 'Menu item submitted. <a target="_blank" href="%s">Preview menu item</a>', 'restaurant' ), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) ),
-		 9 => sprintf( __( 'Menu item scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview menu item</a>', 'restaurant' ), date_i18n( __( 'M j, Y @ G:i', 'restaurant' ), strtotime( $post->post_date ) ), esc_url( get_permalink( $post_ID ) ) ),
-		10 => sprintf( __( 'Menu item draft updated. <a target="_blank" href="%s">Preview menu item</a>', 'restaurant' ), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) ),
+		 4 => __( 'Menu item updated.', 'wpdentist' ),
+		 5 => isset( $_GET['revision'] ) ? sprintf( __( 'Menu item restored to revision from %s', 'wpdentist' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+		 6 => sprintf( __( 'Menu item published. <a href="%s">View menu item</a>', 'wpdentist' ), esc_url( get_permalink( $post_ID ) ) ),
+		 7 => __( 'Menu item saved.', 'wpdentist' ),
+		 8 => sprintf( __( 'Menu item submitted. <a target="_blank" href="%s">Preview menu item</a>', 'wpdentist' ), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) ),
+		 9 => sprintf( __( 'Menu item scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview menu item</a>', 'wpdentist' ), date_i18n( __( 'M j, Y @ G:i', 'wpdentist' ), strtotime( $post->post_date ) ), esc_url( get_permalink( $post_ID ) ) ),
+		10 => sprintf( __( 'Menu item draft updated. <a target="_blank" href="%s">Preview menu item</a>', 'wpdentist' ), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) ),
 	);
 
 	return $messages;

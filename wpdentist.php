@@ -93,6 +93,7 @@ final class WP_Dentist {
 
                 require_once( WPDENTIST_DIR . 'inc/functions.php' );
 		require_once( WPDENTIST_DIR . 'inc/post-types.php' );
+		require_once( WPDENTIST_DIR . 'inc/meta-boxes.php' );
 	}
 
 	/**

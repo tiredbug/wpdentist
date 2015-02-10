@@ -1,17 +1,17 @@
 <?php
 /**
- * Handles custom post meta boxes for the 'restaurant_item' post type.
+ * Handles custom post meta boxes for the 'wpdentist_item' post type.
  *
- * @package    Restaurant
+ * @package    WP_Dentist
  * @subpackage Admin
  * @since      1.0.0
  * @author     Justin Tadlock <justin@justintadlock.com>
  * @copyright  Copyright (c) 2013 - 2014, Justin Tadlock
- * @link       http://themehybrid.com/plugins/restaurant
+ * @link       http://themehybrid.com/plugins/wpdentist
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
-final class RP_Restaurant_Settings {
+final class RP_WP_Dentist_Settings {
 
 	/**
 	 * Holds the instances of this class.
@@ -61,11 +61,11 @@ final class RP_Restaurant_Settings {
 	public function admin_menu() {
 
 		$this->settings_page = add_submenu_page( 
-			'edit.php?post_type=restaurant_item',
-			__( 'Restaurant Settings', 'restaurant' ),
-			__( 'Settings',            'restaurant' ),
-			apply_filters( 'restaurant_settings_capability', 'manage_options' ),
-			'restaurant-settings',
+			'edit.php?post_type=wpdentist_item',
+			__( 'WP Dentist Settings', 'wpdentist' ),
+			__( 'Settings',            'wpdentist' ),
+			apply_filters( 'wpdentist_settings_capability', 'manage_options' ),
+			'wpdentist-settings',
 			array( $this, 'settings_page' )
 		);
 
@@ -79,7 +79,7 @@ final class RP_Restaurant_Settings {
 		//	add_action( "admin_head-{$this->settings_page}", array( $this, 'print_scripts'   ) );
 
 			/* Load the meta boxes. */
-		//	add_action( 'add_meta_boxes_restaurant', array( $this, 'add_meta_boxes' ) );
+		//	add_action( 'add_meta_boxes_wpdentist', array( $this, 'add_meta_boxes' ) );
 		}
 	}
 
@@ -92,20 +92,20 @@ final class RP_Restaurant_Settings {
 	 */
 	function register_settings() {
 
-		$this->settings = get_option( 'restaurant_settings', rp_get_default_settings() );
+		$this->settings = get_option( 'wpdentist_settings', rp_get_default_settings() );
 
-		register_setting( 'restaurant_settings', 'restaurant_settings', array( $this, 'validate_settings' ) );
+		register_setting( 'wpdentist_settings', 'wpdentist_settings', array( $this, 'validate_settings' ) );
 
 		add_settings_section( 
 			'rp_section_menu', 
-			__( 'Menu Settings', 'restaurant' ), 
+			__( 'Menu Settings', 'wpdentist' ), 
 			array( $this, 'section_menu' ),
 			$this->settings_page
 		);
 
 		add_settings_field(
 			'rp_field_menu_title',
-			__( 'Menu Archive Title', 'restaurant' ),
+			__( 'Menu Archive Title', 'wpdentist' ),
 			array( $this, 'field_menu_title' ),
 			$this->settings_page,
 			'rp_section_menu'
@@ -113,7 +113,7 @@ final class RP_Restaurant_Settings {
 
 		add_settings_field(
 			'rp_field_menu_description',
-			__( 'Menu Archive Description', 'restaurant' ),
+			__( 'Menu Archive Description', 'wpdentist' ),
 			array( $this, 'field_menu_description' ),
 			$this->settings_page,
 			'rp_section_menu'
@@ -129,11 +129,11 @@ final class RP_Restaurant_Settings {
 	 */
 	function validate_settings( $settings ) {
 
-		$settings['restaurant_item_archive_title'] = strip_tags( $settings['restaurant_item_archive_title'] );
+		$settings['wpdentist_item_archive_title'] = strip_tags( $settings['wpdentist_item_archive_title'] );
 
 		/* Kill evil scripts. */
 		if ( !current_user_can( 'unfiltered_html' ) )
-			$settings['restaurant_item_description'] = stripslashes( wp_filter_post_kses( addslashes( $settings['restaurant_item_description'] ) ) );
+			$settings['wpdentist_item_description'] = stripslashes( wp_filter_post_kses( addslashes( $settings['wpdentist_item_description'] ) ) );
 
 		/* Return the validated/sanitized settings. */
 		return $settings;
@@ -149,7 +149,7 @@ final class RP_Restaurant_Settings {
 	public function section_menu() { ?>
 
 		<p class="description">
-			<?php printf( __( "Your restaurant's menu is located at %s.", 'restaurant' ), '<a href="' . get_post_type_archive_link( 'restaurant_item' ) . '"><code>' . get_post_type_archive_link( 'restaurant_item' ) . '</code></a>' ); ?>
+			<?php printf( __( "Your wpdentist's menu is located at %s.", 'wpdentist' ), '<a href="' . get_post_type_archive_link( 'wpdentist' ) . '"><code>' . get_post_type_archive_link( 'wpdentist_item' ) . '</code></a>' ); ?>
 		</p>
 	<?php }
 
@@ -163,7 +163,7 @@ final class RP_Restaurant_Settings {
 	public function field_menu_title() { ?>
 
 		<p>
-			<input type="text" class="regular-text" name="restaurant_settings[restaurant_item_archive_title]" id="restaurant_settings-restaurant_item_archive_title" value="<?php echo esc_attr( $this->settings['restaurant_item_archive_title'] ); ?>" />
+			<input type="text" class="regular-text" name="wpdentist_settings[wpdentist_item_archive_title]" id="wpdentist_settings-wpdentist_item_archive_title" value="<?php echo esc_attr( $this->settings['wpdentist_item_archive_title'] ); ?>" />
 		</p>
 	<?php }
 
@@ -177,8 +177,8 @@ final class RP_Restaurant_Settings {
 	public function field_menu_description() { ?>
 
 		<p>
-			<textarea class="large-text" name="restaurant_settings[restaurant_item_description]" id="restaurant_settings-restaurant_item_description" rows="4"><?php echo esc_textarea( $this->settings['restaurant_item_description'] ); ?></textarea>
-			<span class="description"><?php _e( "Custom description for your restaurant's menu. You may use <abbr title='Hypertext Markup Language'>HTML</abbr>. Your theme may or may not display this description.", 'restaurant' ); ?></span>
+			<textarea class="large-text" name="wpdentist_settings[wpdentist_item_description]" id="wpdentist_settings-wpdentist_item_description" rows="4"><?php echo esc_textarea( $this->settings['wpdentist_item_description'] ); ?></textarea>
+			<span class="description"><?php _e( "Custom description for your wpdentist's menu. You may use <abbr title='Hypertext Markup Language'>HTML</abbr>. Your theme may or may not display this description.", 'wpdentist' ); ?></span>
 		</p>
 	<?php }
 
@@ -193,14 +193,14 @@ final class RP_Restaurant_Settings {
 
 		<div class="wrap">
 			<?php screen_icon(); ?>
-			<h2><?php _e( 'Restaurant Settings', 'restaurant' ); ?></h2>
+			<h2><?php _e( 'WP Dentist Settings', 'wpdentist' ); ?></h2>
 
 			<?php settings_errors(); ?>
 
 			<form method="post" action="options.php">
-				<?php settings_fields( 'restaurant_settings' ); ?>
+				<?php settings_fields( 'wpdentist_settings' ); ?>
 				<?php do_settings_sections( $this->settings_page ); ?>
-				<?php submit_button( esc_attr__( 'Update Settings', 'restaurant' ), 'primary' ); ?>
+				<?php submit_button( esc_attr__( 'Update Settings', 'wpdentist' ), 'primary' ); ?>
 			</form>
 
 		</div><!-- wrap -->
@@ -222,4 +222,4 @@ final class RP_Restaurant_Settings {
 	}
 }
 
-RP_Restaurant_Settings::get_instance();
+RP_WP_Dentist_Settings::get_instance();
